@@ -1,7 +1,16 @@
 package com.test1.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetAddress;
+import java.util.HashMap;
+import java.util.regex.Pattern;
 
 @RestController
 public class TestControllers {
@@ -19,12 +28,12 @@ public class TestControllers {
             HttpServletResponse response) throws IOException {
         HashMap traceParam = new HashMap();
 
-        SALogger.trace(traceParam, "Start fileName:" + fileName);
+//        SALogger.trace(traceParam, "Start fileName:" + fileName);
 
         try {
 
-            String src= logConfig.getDownloadSourcePath() + "/" + fileName;
-            SALogger.trace(traceParam, "Open file:" + src);
+            String src= "asdassds"; //logConfig.getDownloadSourcePath() + "/" + fileName;
+//            SALogger.trace(traceParam, "Open file:" + src);
             if ( new File(src).exists() ) {
                 String[] fileDtl = fileName.split(Pattern.quote("."));
                 String fileExt = "." + fileDtl[fileDtl.length-1];
@@ -38,10 +47,10 @@ public class TestControllers {
                 response.setStatus(404);
                 response.getWriter().append("File " + src + " not found on " + hostname );
             }
-            SALogger.trace(traceParam, "End fileName:" + fileName);
+//            SALogger.trace(traceParam, "End fileName:" + fileName);
         } catch ( Exception e){
             e.printStackTrace();
-            SALogger.trace(traceParam, "Err:" + e.getMessage());
+//            SALogger.trace(traceParam, "Err:" + e.getMessage());
         }
 
     }
